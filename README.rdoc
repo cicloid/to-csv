@@ -40,7 +40,7 @@ After that, if you need to globally configure the gem, just create a <i>to_csv.r
   ToCSV.byte_order_marker = true
   ToCSV.timestamps        = true
   ToCSV.locale            = 'en-US'
-  ToCSV.primary_key       = false
+  ToCSV.pkey       = false
   ToCSV.csv_options[:col_sep] = ','
   ToCSV.csv_options[:row_sep] = "\r\n"
 
@@ -201,7 +201,7 @@ Examples:
   # User model
   class User < ActiveRecord::Base
     def self.csv(users)
-      users.csv(:headers => [:id, :all], :primary_key => true, :except => :password) do |row, user|
+      users.csv(:headers => [:id, :all], :pkey => true, :except => :password) do |row, user|
         row.id = "%04d" % user.id
         row.created_at = I18n.l(user.created_at, :format => :default)
       end

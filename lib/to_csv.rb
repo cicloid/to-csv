@@ -4,7 +4,7 @@ require 'active_support/core_ext'
 require 'to_csv/csv_converter'
 
 module ToCSV
-  mattr_accessor :byte_order_marker, :locale, :primary_key, :timestamps
+  mattr_accessor :byte_order_marker, :locale, :pkey, :timestamps
   mattr_accessor :csv_options
   self.csv_options = { :col_sep => ';', :encoding => 'UTF-8' }
 
@@ -28,7 +28,7 @@ module ToCSV
   #    +timestamps+::
   #      Include timestamps +created_at+, +created_on+, +updated_at+ and
   #      +updated_on+. If false Default: +false+.
-  #    +primary_key+::
+  #    +pkey+::
   #      If +true+ the object's primary key will be added as an attribute,
   #      which in turn will be mapped to a CSV column. Default: +false+.
   #    +headers+::

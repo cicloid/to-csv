@@ -9,7 +9,7 @@ module ToCSV
       @opts = options.to_options.reverse_merge({
         :byte_order_marker => ToCSV.byte_order_marker,
         :locale            => ToCSV.locale || ::I18n.locale,
-        :primary_key       => ToCSV.primary_key,
+        :pkey       => ToCSV.pkey,
         :timestamps        => ToCSV.timestamps
       })
 
@@ -176,9 +176,9 @@ module ToCSV
         value.is_a?(Time) || value.is_a?(Date) || value.is_a?(DateTime)
       end
 
-      def primary_key_filter(attributes)
-        return attributes if @opts[:primary_key]
-        attributes - Array(@data.first.class.primary_key.to_s)
+      def pkey_filter(attributes)
+        return attributes if @opts[:pkey]
+        attributes - Array(@data.first.class.pkey.to_s)
       end
 
       def timestamps_filter(attributes)
@@ -210,7 +210,7 @@ module ToCSV
 
       def filter_attributes(attributes)
         attributes = methods_filter(attributes)
-        attributes = primary_key_filter(attributes)
+        attributes = pkey_filter(attributes)
         attributes = timestamps_filter(attributes)
         attributes = @opts[:only].any?? only_filter(attributes) : except_filter(attributes)
         attributes
